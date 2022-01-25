@@ -104,7 +104,6 @@ def read_file(filename):
 # Print data based on type selected
 def print_data(data, out_format):
 
-
     if out_format == 'json':
         print(json.dumps(data))
 
@@ -119,6 +118,7 @@ def print_data(data, out_format):
         for host in data.keys():
             print("host {} -- min {}, max {}, avg {:.2f}, datapoints {}".format(host, data[host]['min'], data[host]['max'], data[host]['avg'], data[host]['count']))
 
+# Write to file with type selected
 def write_to_file(data, out_format, outfile):
 
     if out_format == 'json':
