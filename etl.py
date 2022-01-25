@@ -1,3 +1,4 @@
+import os
 import argparse
 import csv
 import json
@@ -104,6 +105,7 @@ def read_file(filename):
 # Print data based on type selected
 def print_data(data, out_format):
 
+
     if out_format == 'json':
         print(json.dumps(data))
 
@@ -139,10 +141,14 @@ if __name__ == '__main__':
     parser = set_up_parser()
     args = parser.parse_args()
 
-    data = read_file(args.input_file)
+    if os.path.isfile(args.input_file):
+        data = read_file(args.input_file)
+    
+        if args.outfile:
+            write_to_file(data, args.out_format, args.outfile)
+        
+        if not args.q:    
+            print_data(data, args.out_format)
 
-    if args.outfile:
-        write_to_file(data, args.out_format, args.outfile)
-
-    if not args.q:    
-        print_data(data, args.out_format)
+    else:
+        print("{} is not a valid file".format(args.input_file))
